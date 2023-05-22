@@ -39,7 +39,8 @@ namespace WebApiYINSA.Database
 			Conectar();
 			var cmd = new SqlCommand(query, _connection)
 			{
-				CommandType = CommandType.StoredProcedure
+				CommandType = CommandType.StoredProcedure,
+				CommandTimeout= 0
 			};
 			var reader = await cmd.ExecuteReaderAsync();
 			string resp = "";
@@ -56,7 +57,8 @@ namespace WebApiYINSA.Database
 			Conectar();
 			var cmd = new SqlCommand(query, _connection)
 			{
-				CommandType = CommandType.StoredProcedure
+				CommandType = CommandType.StoredProcedure,
+				CommandTimeout = 0
 			};
 			cmd.Parameters.AddRange(parametros.ToArray());
 

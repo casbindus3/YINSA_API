@@ -9,13 +9,34 @@
 		public string Phone2 { get; set; }
 		public string E_Mail { get; set; }
 		public string SitioWeb { get; set; }
-		public string Direccion { get; set; }
+		public Direccion Direccion { get; set; }
+		public List<Direccion> Direcciones { get; set; }	
+		//public string Direccion { get; set; }
+		//public string Cuadra { get; set; }
+		//public string CP { get; set; }
+		//public string Ciudad { get; set; }
+		//public string Pais { get; set; }
+		public string IdFiscal { get; set; }
+	}
+
+
+	public class Direccion
+	{
+		public string Address { get; set; }
+		public string CardCode { get; set; }
+		public string Calle { get; set; }
+		public string NoCalle { get; set; }
 		public string Cuadra { get; set; }
 		public string CP { get; set; }
 		public string Ciudad { get; set; }
+		public string Condado { get; set; }
 		public string Pais { get; set; }
-		public string IdFiscal { get; set; }
+		public string Estado { get; set; }
+		public string NoExterior { get; set; }
+		public string NoInterior { get; set; }
 	}
+
+
 
 
 }

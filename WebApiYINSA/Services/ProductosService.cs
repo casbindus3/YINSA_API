@@ -1,4 +1,6 @@
-﻿using WebApiYINSA.Database;
+﻿using System.Data.SqlClient;
+using System.Net.NetworkInformation;
+using WebApiYINSA.Database;
 using WebApiYINSA.Models;
 
 namespace WebApiYINSA.Services
@@ -6,7 +8,7 @@ namespace WebApiYINSA.Services
 	public interface IProductosService
 	{
 		Task<List<ProductoModel>> ObtenerProductos();
-	
+		Task<List<ProductoModel>> ProductByCat(int idcat);
 	}
 	public class ProductosService : IProductosService
 	{
@@ -26,6 +28,18 @@ namespace WebApiYINSA.Services
 		}
 
 		//ObtenerProductosPorId
+		public async Task<List<ProductoModel>> ProductByCat(int idcat)
+		{
+			List<SqlParameter> parametros = new()
+			{
+				 new SqlParameter("@idcategoria",idcat),
+			};
+			//string resp = await connection.QueryParameterSP("YINSA_PRUEBA.dbo.FacturasPorUsuario", parametros);
+			string resp = await connection.QueryParameterSP("YINSA_PRUEBA.dbo.ProductosPorCategoria",parametros);
+			var lst = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ProductoModel>>(resp);
+
+			return lst;
+		}
 	}
 }
 

@@ -9,7 +9,7 @@ namespace WebApiYINSA.Services
 
 		Task<List<Socio>> GetClientes();
 		Task<List<Socio>> GetProveedores();
-		Task<List<Socio>> GetSocio(string id);
+		Task<Socio> GetSocio(string id);
 	}
 	public class SociosService: ISociosService
 	{
@@ -21,8 +21,12 @@ namespace WebApiYINSA.Services
 
 		public async Task<List<Socio>> GetClientes()
 		{
+			List<SqlParameter> parametros = new()
+			{
+				 new SqlParameter("@tipo", "C"),
 
-			string resp = await connection.ConsultarSP("YINSA_PRUEBA.dbo.ObtenerClientes");
+			};
+			string resp = await connection.QueryParameterSP("YINSA_PRUEBA.dbo.ObtenerSociosTipo", parametros);
 
 			var lst = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Socio>>(resp);
 
@@ -30,14 +34,19 @@ namespace WebApiYINSA.Services
 		}
 		public async Task<List<Socio>> GetProveedores()
 		{
-			string resp = await connection.ConsultarSP("YINSA_PRUEBA.dbo.ObtenerProveedores");
+			List<SqlParameter> parametros = new()
+			{
+				 new SqlParameter("@tipo", "S"),
+
+			};
+			string resp = await connection.QueryParameterSP("YINSA_PRUEBA.dbo.ObtenerSociosTipo", parametros);
 
 			var lst = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Socio>>(resp);
 
 			return lst;
 
 		}
-		public async Task<List<Socio>> GetSocio(string id)
+		public async Task<Socio> GetSocio(string id)
 		{
 			List<SqlParameter> parametros = new()
 			{
@@ -45,7 +54,7 @@ namespace WebApiYINSA.Services
 			};
 			string resp = await connection.QueryParameterSP("YINSA_PRUEBA.dbo.ObtenerSocioId", parametros);
 
-			var socio = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Socio>>(resp);
+			var socio = Newtonsoft.Json.JsonConvert.DeserializeObject<Socio>(resp);
 			return socio;
 		}
 

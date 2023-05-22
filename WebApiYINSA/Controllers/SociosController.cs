@@ -5,7 +5,7 @@ using WebApiYINSA.Services;
 namespace WebApiYINSA.Controllers
 {
 	[ApiController]
-	[Route("yinsa/api/socios")]
+	[Route("/api/socios")]
 	public class SociosController : ControllerBase
 	{
 		private readonly ISociosService sociosService;

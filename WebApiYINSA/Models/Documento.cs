@@ -2,9 +2,11 @@
 {
 	public class Documento
 	{
+		public string TipoKey { get; set; }
+		public string Tipo { get; set; }
 		public int DocEntry { get; set; }
 		public int NoDocumento { get; set; }
-		public int NoSerie { get; set; }
+		public int? NoSerie { get; set; }
 		public string TipoDocumento { get; set; }
 		public string Cancelado { get; set; }
 		public DateTime Fecha { get; set; }
@@ -29,6 +31,12 @@
 		public float TasaImpuesto { get; set; }
 		public float ImporteImpto { get; set; }
 		public string DireccionEntrega { get; set; }
+		public float Total { get; set; }
+		public float Cargo { get; set; }
+		public float Abono { get; set; }
+		public float Saldo { get; set; }
+		public string Antiguedad { get; set; }
+		public string EstatusCte { get; set; }
 	}
 
 }

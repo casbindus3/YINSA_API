@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace WebApiYINSA.Controllers
 {
 	[ApiController]
-	[Route("yinsa/api/productos")]
+	[Route("/api/productos")]
 	public class ProductosController: ControllerBase
 	{
 		private readonly IProductosService productosService;
@@ -19,10 +19,18 @@ namespace WebApiYINSA.Controllers
 		}
 
 		[HttpGet]
-		//[Route("ObtenerProductos")]
 		public async Task<ActionResult> ObtenerProductos()
 		{
 			var productos = await productosService.ObtenerProductos();
+			var respuesta = Ok(productos);
+			return respuesta;
+		}
+
+		[HttpGet]
+		[Route("productos/categoria")]
+		public async Task<ActionResult> ProductosCat(int id)
+		{
+			var productos = await productosService.ProductByCat(id);
 			var respuesta = Ok(productos);
 			return respuesta;
 		}
