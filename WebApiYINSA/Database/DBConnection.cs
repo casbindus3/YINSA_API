@@ -5,10 +5,12 @@ namespace WebApiYINSA.Database
 {
 	public interface IDBConnection
 	{
-		void Actualizar(string query);
+		Task Actualizar(string query);
 		void Conectar();
 		Task<SqlDataReader> Consultar(string query);
 		Task<string> ConsultarSP(string query);
+		Task<int> Modificacion(string query);
+		Task<int> Modificar(string query, List<SqlParameter> parametros);
 		Task<string> QueryParameterSP(string query, List<SqlParameter> parametros);
 		
 	}
@@ -33,6 +35,20 @@ namespace WebApiYINSA.Database
 			var reader = await cmd.ExecuteReaderAsync();
 			_connection.Close();
 			return reader;
+		}
+		public async Task<int> Modificar(string query, List<SqlParameter> parametros)
+		{
+			Conectar();
+			var cmd = new SqlCommand(query, _connection)
+			{
+				CommandType = CommandType.StoredProcedure,
+				CommandTimeout = 0
+			};
+			cmd.Parameters.AddRange(parametros.ToArray());
+
+			int resp = await cmd.ExecuteNonQueryAsync();
+			_connection.Close();
+			return resp;
 		}
 		public async Task<string> ConsultarSP(string query)
 		{
@@ -72,12 +88,22 @@ namespace WebApiYINSA.Database
 
 			return resp;
 		}
-		public void Actualizar(string query)
+		public async Task Actualizar(string query)
 		{
 			Conectar();
 			var cmd = new SqlCommand(query, _connection);
-			cmd.ExecuteNonQueryAsync();
+			await cmd.ExecuteNonQueryAsync();
 			_connection.Close();
+		}
+
+		public async Task<int> Modificacion(string query)
+		{
+			Conectar();
+			var cmd = new SqlCommand(query, _connection);
+			 int resp = await cmd.ExecuteNonQueryAsync();
+			_connection.Close();
+
+			return resp;
 		}
 	}
 }

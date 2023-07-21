@@ -3,12 +3,13 @@ using Newtonsoft.Json;
 using WebApiYINSA.Models;
 using WebApiYINSA.Services;
 using Microsoft.AspNetCore.Mvc.Rendering;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApiYINSA.Controllers
 {
 	[ApiController]
 	[Route("/api/productos")]
+	//[Authorize]
 	public class ProductosController: ControllerBase
 	{
 		private readonly IProductosService productosService;

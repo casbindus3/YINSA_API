@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebApiYINSA.Models;
 using WebApiYINSA.Services;
 
@@ -6,6 +7,7 @@ namespace WebApiYINSA.Controllers
 {
 	[ApiController]
 	[Route("/api/socios")]
+	//[Authorize]
 	public class SociosController : ControllerBase
 	{
 		private readonly ISociosService sociosService;

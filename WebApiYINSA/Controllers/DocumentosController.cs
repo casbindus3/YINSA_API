@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 using WebApiYINSA.Services;
+using static System.Net.WebRequestMethods;
 
 namespace WebApiYINSA.Controllers
 {
@@ -8,11 +11,65 @@ namespace WebApiYINSA.Controllers
 	public class DocumentosController : ControllerBase
 	{
 		private readonly IDocumentosService documentosService;
+		private readonly IWebHostEnvironment hostEnvironment;
 
-		public DocumentosController(IDocumentosService documentosService)
+		public DocumentosController(IDocumentosService documentosService, IWebHostEnvironment hostEnvironment)
         {
             this.documentosService= documentosService;
-        }
+			this.hostEnvironment = hostEnvironment;
+		}
+		[HttpGet]
+		[Route("/documento/{docentry}")]
+		public ActionResult GetDocument(string docentry)
+		{
+			//var path = "https:\\localhost:7024\\Archivos\\" + docentry;
+			//var path = "/Archivos/" + docentry;
+
+			//var carpeta = "C:\\Users\\alma_\\Downloads";
+
+			var path = "Archivos\\archivo.pdf" ;
+			var carpeta = Path.Combine(hostEnvironment.ContentRootPath, "Descargas");
+			var url = Path.Combine(hostEnvironment.ContentRootPath, path);
+
+			//var carpeta = Server.MapPath("~/carpeta/");
+
+			//intento 1
+			/*using (var httpClient = new HttpClient())
+			{
+				var stream = await httpClient.GetStreamAsync(url);
+
+				using var fileStream = File.Create(Path.Combine(carpeta, "unarchivo.txt"));
+				stream.CopyTo(fileStream);
+
+			}*/
+
+			//Intento 2
+			/*using (var httpClient = new HttpClient())
+			{
+				var stream = await httpClient.GetStreamAsync(url);
+
+				using var fileStream = new FileStream(Path.Combine(carpeta, "archivo.txt"), FileMode.Create);
+				await stream.CopyToAsync(fileStream);
+			}*/
+
+			//intento 3
+			if (!Directory.Exists(carpeta))
+			{
+				Directory.CreateDirectory(carpeta);
+			}
+
+			//var httpClient = new HttpClient();
+			
+				//var archivo = await httpClient.GetByteArrayAsync(url);
+				//byte[] archivo = System.IO.File.ReadAllBytes(url);
+			var dest = Path.Combine(carpeta, "archivo.pdf");
+			System.IO.File.Copy(url, dest, true);
+				//WriteAllBytes(carpeta,archivo);
+			
+
+				return Ok(new { url = docentry });
+
+		}
 
 		[HttpGet]
 		[Route("facturas/cliente")]

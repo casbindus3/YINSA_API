@@ -6,12 +6,21 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>0440eab7-7acf-4469-9fc6-74f09ff312b6</UserSecretsId>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.16" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Archivos\" />
+    <Folder Include="Descargas\" />
   </ItemGroup>
 
 </Project>
