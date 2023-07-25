@@ -60,6 +60,7 @@ builder.Services.AddTransient<HashService>();
 //	opciones.Password.RequireNonAlphanumeric = false;
 //}).AddErrorDescriber<MensajesDeErrorIdentity>();//autenticacion y autorización con identity
 
+//UN COMENTARIO
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 			   .AddJwtBearer(opciones => opciones.TokenValidationParameters = new TokenValidationParameters
 			   {
